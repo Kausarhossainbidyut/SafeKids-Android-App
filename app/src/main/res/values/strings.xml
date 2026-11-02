@@ -1,4 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SafeKids</string>
+    
+    <!-- Accessibility Service -->
+    <string name="accessibility_service_description">SafeKids uses this service to monitor app usage and enforce time limits for parental control.</string>
+    
+    <!-- Foreground Service Notification -->
+    <string name="monitoring_service_title">SafeKids Protection Active</string>
+    <string name="monitoring_service_description">Monitoring app usage and time limits</string>
+    
+    <!-- Permissions -->
+    <string name="permission_usage_stats_title">Usage Access Required</string>
+    <string name="permission_usage_stats_description">SafeKids needs usage access permission to monitor app usage time.</string>
+    <string name="permission_overlay_title">Draw Over Apps Required</string>
+    <string name="permission_overlay_description">SafeKids needs this permission to show lock screen when time limit is reached.</string>
+    <string name="permission_notification_title">Notification Permission</string>
+    <string name="permission_notification_description">SafeKids needs notification permission to alert you about time limits.</string>
+    
+    <!-- Lock Screen -->
+    <string name="lock_screen_title">Time Limit Reached</string>
+    <string name="lock_screen_message">You have reached your time limit for this app.</string>
+    <string name="lock_screen_come_back">Come back tomorrow!</string>
+    <string name="lock_screen_parent_override">Parent Override</string>
+    <string name="lock_screen_enter_password">Enter Parent Password</string>
+    
+    <!-- Time Limit -->
+    <string name="time_limit_warning_title">Time Limit Warning</string>
+    <string name="time_limit_warning_message">You have %1$d minutes remaining for %2$s</string>
+    <string name="time_limit_exceeded_title">Time Limit Exceeded</string>
+    <string name="time_limit_exceeded_message">Time limit reached for %1$s</string>
+    
+    <!-- Dashboard -->
+    <string name="dashboard_title">Dashboard</string>
+    <string name="dashboard_today_screen_time">Today\'s Screen Time</string>
+    <string name="dashboard_most_used_apps">Most Used Apps</string>
+    <string name="dashboard_weekly_stats">Weekly Statistics</string>
+    <string name="dashboard_view_all_apps">View All Apps</string>
+    
+    <!-- App List -->
+    <string name="app_list_title">Manage Apps</string>
+    <string name="app_list_block">Block</string>
+    <string name="app_list_unblock">Unblock</string>
+    <string name="app_list_set_limit">Set Limit</string>
+    <string name="app_list_blocked">Blocked</string>
+    
+    <!-- Time Limit Settings -->
+    <string name="time_limit_settings_title">Set Time Limit</string>
+    <string name="time_limit_daily_limit">Daily Time Limit</string>
+    <string name="time_limit_schedule">Schedule</string>
+    <string name="time_limit_same_every_day">Same limit every day</string>
+    <string name="time_limit_different_weekends">Different on weekends</string>
+    <string name="time_limit_weekdays">Weekdays</string>
+    <string name="time_limit_weekends">Weekends</string>
+    <string name="time_limit_save">Save</string>
+    
+    <!-- Common -->
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="close">Close</string>
+    <string name="settings">Settings</string>
 </resources>

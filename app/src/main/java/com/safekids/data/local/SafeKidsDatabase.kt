@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.safekids.data.local.dao.ParentUserDao
-import com.safekids.data.local.entity.ParentUserEntity
+import com.safekids.data.local.dao.*
+import com.safekids.data.local.entity.*
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 
@@ -15,15 +15,22 @@ import net.sqlcipher.database.SupportFactory
  */
 @Database(
     entities = [
-        ParentUserEntity::class
-        // More entities will be added in later weeks
+        ParentUserEntity::class,
+        AppUsageEntity::class,
+        InstalledAppEntity::class,
+        TimeLimitEntity::class,
+        BlockLogEntity::class
     ],
-    version = 1,
+    version = 2, // Incremented from 1 to 2
     exportSchema = true
 )
 abstract class SafeKidsDatabase : RoomDatabase() {
     
     abstract fun parentUserDao(): ParentUserDao
+    abstract fun appUsageDao(): AppUsageDao
+    abstract fun installedAppDao(): InstalledAppDao
+    abstract fun timeLimitDao(): TimeLimitDao
+    abstract fun blockLogDao(): BlockLogDao
     
     companion object {
         private const val DATABASE_NAME = "safekids.db"

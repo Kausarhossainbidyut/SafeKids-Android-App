@@ -3,7 +3,7 @@ package com.safekids.di
 import android.content.Context
 import androidx.room.Room
 import com.safekids.data.local.SafeKidsDatabase
-import com.safekids.data.local.dao.ParentUserDao
+import com.safekids.data.local.dao.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,5 +43,29 @@ object DatabaseModule {
     @Singleton
     fun provideParentUserDao(database: SafeKidsDatabase): ParentUserDao {
         return database.parentUserDao()
+    }
+    
+    @Provides
+    @Singleton
+    fun provideAppUsageDao(database: SafeKidsDatabase): AppUsageDao {
+        return database.appUsageDao()
+    }
+    
+    @Provides
+    @Singleton
+    fun provideInstalledAppDao(database: SafeKidsDatabase): InstalledAppDao {
+        return database.installedAppDao()
+    }
+    
+    @Provides
+    @Singleton
+    fun provideTimeLimitDao(database: SafeKidsDatabase): TimeLimitDao {
+        return database.timeLimitDao()
+    }
+    
+    @Provides
+    @Singleton
+    fun provideBlockLogDao(database: SafeKidsDatabase): BlockLogDao {
+        return database.blockLogDao()
     }
 }
