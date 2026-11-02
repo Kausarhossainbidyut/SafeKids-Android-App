@@ -1,0 +1,17 @@
+# Remaining Files to Create Manually
+
+## Critical Files Needed for Build
+
+### 1. MainActivity.kt
+Location: app/src/main/java/com/safekids/MainActivity.kt
+See MANUAL_FILES_GUIDE.md for content
+
+### 2. RepositoryModule.kt
+Location: app/src/main/java/com/safekids/di/RepositoryModule.kt
+See MANUAL_FILES_GUIDE.md for content
+
+### 3. AuthRepositoryImpl.kt
+Location: app/src/main/java/com/safekids/data/repository/AuthRepositoryImpl.kt
+See MANUAL_FILES_GUIDE.md for content
+
+
