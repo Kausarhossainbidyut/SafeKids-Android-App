@@ -54,6 +54,7 @@ class AuthRepositoryImpl @Inject constructor(
             val user = parentUserDao.getUserByPhone(phone)
                 ?: return Result.failure(Exception("User not found"))
 
+            if (!passwordHasher.verifyPassword(password, user.passwordHash)) {
                 return Result.failure(Exception("Invalid password"))
             }
 
