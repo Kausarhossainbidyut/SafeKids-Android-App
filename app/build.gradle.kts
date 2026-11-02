@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "com.safekids.app"
+    namespace = "com.safekids"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.safekids.app"
+        applicationId = "com.safekids"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

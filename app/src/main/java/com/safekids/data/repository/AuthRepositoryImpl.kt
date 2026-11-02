@@ -3,6 +3,7 @@ package com.safekids.data.repository
 import com.safekids.core.security.PasswordHasher
 import com.safekids.data.local.dao.ParentUserDao
 import com.safekids.data.local.entity.ParentUserEntity
+import com.safekids.data.mapper.toDomain
 import com.safekids.domain.model.ParentUser
 import com.safekids.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
@@ -26,7 +27,7 @@ class AuthRepositoryImpl @Inject constructor(
         return try {
             val existing = parentUserDao.getUserByPhone(phone)
             if (existing != null) {
-                return Result.failure(Exception("Phone number already registered"))
+                return Result.failure(Exception("Phone already registered"))
             }
 
             val hashedPassword = passwordHasher.hashPassword(password)
@@ -53,7 +54,6 @@ class AuthRepositoryImpl @Inject constructor(
             val user = parentUserDao.getUserByPhone(phone)
                 ?: return Result.failure(Exception("User not found"))
 
-            if (!passwordHasher.verifyPassword(password, user.passwordHash)) {
                 return Result.failure(Exception("Invalid password"))
             }
 
