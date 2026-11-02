@@ -1,5 +1,6 @@
 package com.safekids.core.security
 
+import android.content.Context
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import java.security.KeyStore
@@ -7,17 +8,24 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Manages encryption keys using Android Keystore
  * Used for database encryption and sensitive data
  */
-object KeystoreManager {
+@Singleton
+class KeystoreManager @Inject constructor(
+    private val context: Context
+) {
     
-    private const val ANDROID_KEYSTORE = "AndroidKeyStore"
-    private const val DB_KEY_ALIAS = "safekids_db_key"
-    private const val TRANSFORMATION = "AES/GCM/NoPadding"
-    private const val GCM_TAG_LENGTH = 128
+    private companion object {
+        const val ANDROID_KEYSTORE = "AndroidKeyStore"
+        const val DB_KEY_ALIAS = "safekids_db_key"
+        const val TRANSFORMATION = "AES/GCM/NoPadding"
+        const val GCM_TAG_LENGTH = 128
+    }
     
     /**
      * Get or create database encryption key
