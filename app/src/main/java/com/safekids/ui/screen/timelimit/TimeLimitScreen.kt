@@ -100,13 +100,19 @@ fun TimeLimitScreen(
                     }
                     Button(
                         onClick = {
+                            // Check if packageName is empty
+                            if (packageName.isEmpty()) {
+                                viewModel.showError("Please select an app from App List")
+                                return@Button
+                            }
+                            
                             val validationError = viewModel.validateForm()
                             if (validationError != null) {
-                                // Show error
+                                viewModel.showError(validationError)
                             } else {
                                 viewModel.setTimeLimit(
                                     packageName = packageName,
-                                    appName = appName,
+                                    appName = appName.ifEmpty { "Unknown App" },
                                     dailyLimitMillis = viewModel.getDailyLimitMillis(),
                                     weekdayLimitMillis = viewModel.getWeekdayLimitMillis(),
                                     weekendLimitMillis = viewModel.getWeekendLimitMillis(),

@@ -37,7 +37,8 @@ class AppListViewModel @Inject constructor(
     val showBlockedOnly: StateFlow<Boolean> = _showBlockedOnly.asStateFlow()
 
     init {
-        loadInstalledApps()
+        // First sync apps from device, then load
+        syncInstalledApps()
     }
 
     fun loadInstalledApps() {

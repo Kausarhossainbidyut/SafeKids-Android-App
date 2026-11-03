@@ -29,6 +29,8 @@ class UsageStatsViewModel @Inject constructor(
     val statistics: StateFlow<UsageStatistics?> = _statistics.asStateFlow()
 
     init {
+        // Sync usage stats on start
+        syncUsageStats()
         loadTodayUsage()
         observeStatistics()
     }

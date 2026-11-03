@@ -236,6 +236,10 @@ class TimeLimitViewModel @Inject constructor(
         }
         return null
     }
+    
+    fun showError(message: String) {
+        _uiState.value = TimeLimitUiState.Error(message)
+    }
 
     private fun populateFormFromTimeLimit(timeLimit: TimeLimit) {
         val dailyHours = (timeLimit.dailyLimitMillis / (60 * 60 * 1000)).toInt()

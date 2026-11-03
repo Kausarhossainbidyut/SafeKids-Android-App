@@ -270,7 +270,7 @@ fun QuickActionsCard(
                     Text("Manage Apps")
                 }
                 OutlinedButton(
-                    onClick = onNavigateToTimeLimit,
+                    onClick = onNavigateToAppList,
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(Icons.Default.Timer, contentDescription = null)
