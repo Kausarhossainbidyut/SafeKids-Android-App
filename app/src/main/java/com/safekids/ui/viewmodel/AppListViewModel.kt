@@ -67,10 +67,13 @@ class AppListViewModel @Inject constructor(
     fun syncInstalledApps() {
         viewModelScope.launch {
             try {
-                _uiState.value = AppListUiState.Loading
+                // Don't set loading state - sync in background
+                android.util.Log.d("AppListViewModel", "Starting sync...")
                 appManagementRepository.syncInstalledApps()
-                loadInstalledApps()
+                android.util.Log.d("AppListViewModel", "Sync completed")
+                // loadInstalledApps() will auto-update via Flow
             } catch (e: Exception) {
+                android.util.Log.e("AppListViewModel", "Sync failed: ${e.message}", e)
                 _uiState.value = AppListUiState.Error(
                     "Failed to sync: ${e.localizedMessage}"
                 )

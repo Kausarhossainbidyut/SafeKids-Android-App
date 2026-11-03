@@ -60,9 +60,12 @@ fun TimeLimitScreen(
                     message = (uiState as TimeLimitUiState.Success).message,
                     duration = SnackbarDuration.Short
                 )
-                // Navigate back after successful save
+                // Reload data after successful save instead of navigating back
+                kotlinx.coroutines.delay(500)
+                viewModel.loadTimeLimitForApp(packageName)
+                // Reset state to Idle
                 kotlinx.coroutines.delay(1000)
-                onNavigateBack()
+                // Don't navigate back - stay on screen to verify changes
             }
             is TimeLimitUiState.Error -> {
                 snackbarHostState.showSnackbar(

@@ -134,7 +134,8 @@ class TimeLimitViewModel @Inject constructor(
                 result.onSuccess {
                     android.util.Log.d("TimeLimitViewModel", "Save successful")
                     _uiState.value = TimeLimitUiState.Success("Time limit set successfully")
-                    resetForm()
+                    // Don't reset form - let screen handle navigation
+                    // resetForm()
                 }.onFailure { e ->
                     android.util.Log.e("TimeLimitViewModel", "Save failed: ${e.message}", e)
                     _uiState.value = TimeLimitUiState.Error(
