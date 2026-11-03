@@ -67,7 +67,10 @@ class AppManagementRepositoryImpl @Inject constructor(
     
     override suspend fun syncInstalledApps() {
         try {
+            android.util.Log.d("AppManagementRepo", "Starting syncInstalledApps...")
             val deviceApps = installedAppsManager.getAllUserApps()
+            android.util.Log.d("AppManagementRepo", "Found ${deviceApps.size} apps on device")
+            
             val currentPackages = deviceApps.map { it.packageName }
             
             // Remove uninstalled apps from database
@@ -100,9 +103,14 @@ class AppManagementRepositoryImpl @Inject constructor(
                 }
             }
             
+            android.util.Log.d("AppManagementRepo", "Inserting ${entities.size} apps to database")
             installedAppDao.insertAll(entities)
+            
+            // Verify insertion
+            val count = installedAppDao.getUserAppsCount()
+            android.util.Log.d("AppManagementRepo", "Sync complete. Database has $count apps")
         } catch (e: Exception) {
-            // Handle error silently or log
+            android.util.Log.e("AppManagementRepo", "Sync failed: ${e.message}", e)
         }
     }
     

@@ -26,19 +26,26 @@ class InstalledAppsManager @Inject constructor(
      */
     fun getAllUserApps(): List<InstalledAppInfo> {
         return try {
+            android.util.Log.d("InstalledAppsManager", "Getting all user apps...")
             val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
+            android.util.Log.d("InstalledAppsManager", "Total packages: ${packages.size}")
             
-            packages
+            val userApps = packages
                 .filter { !isSystemApp(it.applicationInfo) }
                 .mapNotNull { packageInfo ->
                     try {
                         createAppInfo(packageInfo)
                     } catch (e: Exception) {
+                        android.util.Log.e("InstalledAppsManager", "Error creating app info for ${packageInfo.packageName}: ${e.message}")
                         null
                     }
                 }
                 .sortedBy { it.appName.lowercase() }
+            
+            android.util.Log.d("InstalledAppsManager", "User apps (non-system): ${userApps.size}")
+            return userApps
         } catch (e: Exception) {
+            android.util.Log.e("InstalledAppsManager", "Failed to get apps: ${e.message}", e)
             emptyList()
         }
     }
