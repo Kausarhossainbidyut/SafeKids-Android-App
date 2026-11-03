@@ -46,6 +46,14 @@ class TimeLimitRepositoryImpl @Inject constructor(
         isEnabled: Boolean
     ): Result<Unit> {
         return try {
+            android.util.Log.d("TimeLimitRepository", """
+                setTimeLimit:
+                packageName: $packageName
+                warningThresholdPercent: $warningThresholdPercent
+                weekdayLimitMillis: $weekdayLimitMillis
+                weekendLimitMillis: $weekendLimitMillis
+            """.trimIndent())
+            
             val existing = timeLimitDao.getLimitByPackage(packageName)
             
             if (existing != null) {
@@ -59,6 +67,7 @@ class TimeLimitRepositoryImpl @Inject constructor(
                     isEnabled = isEnabled,
                     updatedAt = System.currentTimeMillis()
                 )
+                android.util.Log.d("TimeLimitRepository", "Updating: $updated")
                 timeLimitDao.update(updated)
             } else {
                 // Insert new limit
@@ -71,11 +80,18 @@ class TimeLimitRepositoryImpl @Inject constructor(
                     warningThresholdPercent = warningThresholdPercent,
                     isEnabled = isEnabled
                 )
-                timeLimitDao.insert(newLimit)
+                android.util.Log.d("TimeLimitRepository", "Inserting: $newLimit")
+                val id = timeLimitDao.insert(newLimit)
+                android.util.Log.d("TimeLimitRepository", "Inserted with ID: $id")
             }
+            
+            // Verify saved data
+            val saved = timeLimitDao.getLimitByPackage(packageName)
+            android.util.Log.d("TimeLimitRepository", "Verified saved data: $saved")
             
             Result.success(Unit)
         } catch (e: Exception) {
+            android.util.Log.e("TimeLimitRepository", "Error saving: ${e.message}", e)
             Result.failure(e)
         }
     }

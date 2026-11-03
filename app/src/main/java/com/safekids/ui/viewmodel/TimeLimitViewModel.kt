@@ -108,7 +108,20 @@ class TimeLimitViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _uiState.value = TimeLimitUiState.Saving
-                timeLimitRepository.setTimeLimit(
+                
+                // Debug log
+                android.util.Log.d("TimeLimitViewModel", """
+                    setTimeLimit called:
+                    packageName: $packageName
+                    appName: $appName
+                    dailyLimitMillis: $dailyLimitMillis
+                    weekdayLimitMillis: $weekdayLimitMillis
+                    weekendLimitMillis: $weekendLimitMillis
+                    warningThresholdPercent: $warningThresholdPercent
+                    isEnabled: $isEnabled
+                """.trimIndent())
+                
+                val result = timeLimitRepository.setTimeLimit(
                     packageName = packageName,
                     appName = appName,
                     dailyLimitMillis = dailyLimitMillis,
@@ -117,9 +130,19 @@ class TimeLimitViewModel @Inject constructor(
                     warningThresholdPercent = warningThresholdPercent,
                     isEnabled = isEnabled
                 )
-                _uiState.value = TimeLimitUiState.Success("Time limit set successfully")
-                resetForm()
+                
+                result.onSuccess {
+                    android.util.Log.d("TimeLimitViewModel", "Save successful")
+                    _uiState.value = TimeLimitUiState.Success("Time limit set successfully")
+                    resetForm()
+                }.onFailure { e ->
+                    android.util.Log.e("TimeLimitViewModel", "Save failed: ${e.message}", e)
+                    _uiState.value = TimeLimitUiState.Error(
+                        "Failed to set time limit: ${e.localizedMessage}"
+                    )
+                }
             } catch (e: Exception) {
+                android.util.Log.e("TimeLimitViewModel", "Exception: ${e.message}", e)
                 _uiState.value = TimeLimitUiState.Error(
                     "Failed to set time limit: ${e.localizedMessage}"
                 )

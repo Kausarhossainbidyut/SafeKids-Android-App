@@ -119,6 +119,18 @@ fun TimeLimitScreen(
                             if (validationError != null) {
                                 viewModel.showError(validationError)
                             } else {
+                                // Debug: Log all values before saving
+                                android.util.Log.d("TimeLimitScreen", """
+                                    Saving time limit:
+                                    packageName: $packageName
+                                    appName: ${appName.ifEmpty { "Unknown App" }}
+                                    dailyLimitMillis: ${viewModel.getDailyLimitMillis()}
+                                    weekdayLimitMillis: ${viewModel.getWeekdayLimitMillis()}
+                                    weekendLimitMillis: ${viewModel.getWeekendLimitMillis()}
+                                    warningThreshold: $warningThreshold
+                                    isEnabled: $isEnabled
+                                """.trimIndent())
+                                
                                 viewModel.setTimeLimit(
                                     packageName = packageName,
                                     appName = appName.ifEmpty { "Unknown App" },
