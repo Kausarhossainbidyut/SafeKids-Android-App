@@ -113,7 +113,9 @@ class TimeLimitViewModel @Inject constructor(
                     appName = appName,
                     dailyLimitMillis = dailyLimitMillis,
                     weekdayLimitMillis = weekdayLimitMillis,
-                    weekendLimitMillis = weekendLimitMillis
+                    weekendLimitMillis = weekendLimitMillis,
+                    warningThresholdPercent = warningThresholdPercent,
+                    isEnabled = isEnabled
                 )
                 _uiState.value = TimeLimitUiState.Success("Time limit set successfully")
                 resetForm()
@@ -216,15 +218,37 @@ class TimeLimitViewModel @Inject constructor(
     }
 
     fun getWeekdayLimitMillis(): Long? {
-        val hours = _weekdayLimitHours.value ?: return null
-        val minutes = _weekdayLimitMinutes.value ?: 0
-        return ((hours * 60L + minutes) * 60L * 1000L)
+        val hours = _weekdayLimitHours.value
+        val minutes = _weekdayLimitMinutes.value
+        
+        // Return null if both are null (toggle is OFF)
+        if (hours == null && minutes == null) return null
+        
+        // If one is set, use it with 0 for the other
+        val h = hours ?: 0
+        val m = minutes ?: 0
+        
+        // Return null if both are 0 (no limit set)
+        if (h == 0 && m == 0) return null
+        
+        return ((h * 60L + m) * 60L * 1000L)
     }
 
     fun getWeekendLimitMillis(): Long? {
-        val hours = _weekendLimitHours.value ?: return null
-        val minutes = _weekendLimitMinutes.value ?: 0
-        return ((hours * 60L + minutes) * 60L * 1000L)
+        val hours = _weekendLimitHours.value
+        val minutes = _weekendLimitMinutes.value
+        
+        // Return null if both are null (toggle is OFF)
+        if (hours == null && minutes == null) return null
+        
+        // If one is set, use it with 0 for the other
+        val h = hours ?: 0
+        val m = minutes ?: 0
+        
+        // Return null if both are 0 (no limit set)
+        if (h == 0 && m == 0) return null
+        
+        return ((h * 60L + m) * 60L * 1000L)
     }
 
     fun validateForm(): String? {

@@ -41,7 +41,9 @@ class TimeLimitRepositoryImpl @Inject constructor(
         appName: String,
         dailyLimitMillis: Long,
         weekdayLimitMillis: Long?,
-        weekendLimitMillis: Long?
+        weekendLimitMillis: Long?,
+        warningThresholdPercent: Int,
+        isEnabled: Boolean
     ): Result<Unit> {
         return try {
             val existing = timeLimitDao.getLimitByPackage(packageName)
@@ -53,7 +55,8 @@ class TimeLimitRepositoryImpl @Inject constructor(
                     dailyLimitMillis = dailyLimitMillis,
                     weekdayLimitMillis = weekdayLimitMillis,
                     weekendLimitMillis = weekendLimitMillis,
-                    isEnabled = true,
+                    warningThresholdPercent = warningThresholdPercent,
+                    isEnabled = isEnabled,
                     updatedAt = System.currentTimeMillis()
                 )
                 timeLimitDao.update(updated)
@@ -65,7 +68,8 @@ class TimeLimitRepositoryImpl @Inject constructor(
                     dailyLimitMillis = dailyLimitMillis,
                     weekdayLimitMillis = weekdayLimitMillis,
                     weekendLimitMillis = weekendLimitMillis,
-                    isEnabled = true
+                    warningThresholdPercent = warningThresholdPercent,
+                    isEnabled = isEnabled
                 )
                 timeLimitDao.insert(newLimit)
             }

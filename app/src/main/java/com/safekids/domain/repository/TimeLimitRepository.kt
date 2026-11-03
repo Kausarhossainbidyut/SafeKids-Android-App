@@ -37,7 +37,9 @@ interface TimeLimitRepository {
         appName: String,
         dailyLimitMillis: Long,
         weekdayLimitMillis: Long? = null,
-        weekendLimitMillis: Long? = null
+        weekendLimitMillis: Long? = null,
+        warningThresholdPercent: Int = 80,
+        isEnabled: Boolean = true
     ): Result<Unit>
     
     /**

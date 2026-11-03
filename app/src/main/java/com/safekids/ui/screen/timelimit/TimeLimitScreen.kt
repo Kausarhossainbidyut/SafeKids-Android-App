@@ -42,6 +42,15 @@ fun TimeLimitScreen(
     LaunchedEffect(packageName) {
         viewModel.loadTimeLimitForApp(packageName)
     }
+    
+    // Update toggle states when limits are loaded
+    LaunchedEffect(weekdayLimitHours, weekdayLimitMinutes) {
+        showWeekdayLimit = weekdayLimitHours != null || weekdayLimitMinutes != null
+    }
+    
+    LaunchedEffect(weekendLimitHours, weekendLimitMinutes) {
+        showWeekendLimit = weekendLimitHours != null || weekendLimitMinutes != null
+    }
 
     // Handle UI state changes
     LaunchedEffect(uiState) {
